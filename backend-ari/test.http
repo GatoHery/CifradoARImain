@@ -1,0 +1,45 @@
+### Prueba de conversión de texto a JSON
+POST http://localhost:3000/api/conversion/text-to-json
+Content-Type: application/json
+
+{
+    "inputText": "1234567890|Juan|Perez|4111111111111111|VISA|123456789|(1.23, 4.56, 7.89, 1.23)",
+    "delimiter": "|",
+    "encryptionKey": "clave-secreta-123"
+}
+
+### Prueba de conversión de JSON a texto
+POST http://localhost:3000/api/conversion/json-to-text
+Content-Type: application/json
+
+{
+    "data": [{
+        "documento": "1234567890",
+        "nombres": "Juan",
+        "apellidos": "Perez",
+        "tarjeta": "encrypted_card_data_here",
+        "tipo": "VISA",
+        "telefono": "123456789",
+        "poligono": {
+            "type": "FeatureCollection",
+            "crs": {
+                "type": "name",
+                "properties": {
+                    "name": "EPSG:4326"
+                }
+            },
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[1.23, 4.56, 7.89, 1.23]]
+                },
+                "properties": {
+                    "land_Use": "T"
+                }
+            }]
+        }
+    }],
+    "decryptionKey": "clave-secreta-123",
+    "delimiter": "|"
+}
